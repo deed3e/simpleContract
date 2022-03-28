@@ -5,10 +5,10 @@ contract pallgreeContract{
 	mapping ( address  => uint) public balances;
 	mapping ( address => mapping(address=>uint)) public allowance;
 	  
-	uint public totalSupply =1000 * 10 ** 9;
+	uint public totalSupply =1000 * 10 ** 3;
 	string public name = "pallgree token";
 	string public symbol= "PGR";
-	uint public decimal =9;
+	uint public decimal =3;
 
 	event Transfer(address indexed from,address indexed to,uint value);
 	event Approval(address indexed owner,address indexed spender,uint value);
@@ -32,12 +32,13 @@ contract pallgreeContract{
 	}
 
 	function transferFrom(address from,address to,uint value) public returns(bool){
-		require(balancesOf(from) >= value ,"not enought token");
-		require (allowance[from][msg.sender] >= value , "not enought token");
+		require(balanceOf(from) >= value ,"not enought token");
+		require (allowance[from][msg.sender] >= value , "not enought token allower");
 		balances[to] +=value;
 		balances[from] -=value;
 
 		emit Transfer(from,to ,value);
+        return true;
 
 	}
 
